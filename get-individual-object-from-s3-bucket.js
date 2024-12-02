@@ -15,3 +15,19 @@ function S3BucketToMirthData(accessId, Key, bucketName,region,s3ObjectName){
 	}
 	return value;
 }
+
+
+// This function is used inside S3BucketToMirthData() function
+// to append each line of Hl7 Message & return the hl7 content back
+function displayTextInputStream(inputStream){	
+	var reader 	= new java.io.BufferedReader(new java.io.InputStreamReader(inputStream));
+	var line 		= null;
+	// Each Line of HL7 message will be looped and appended
+	var hl7Message = new java.lang.StringBuilder();
+	// reader.readLine() will read the lines of HL7 message 
+	while ((line = reader.readLine()) != null) {
+		hl7Message.append(line);
+		hl7Message.append("\n");
+	}
+	return hl7Message.toString();
+}
